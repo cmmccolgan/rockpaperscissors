@@ -9,3 +9,4 @@ This project was built as a final project to the Spring 2016 Intro to Python. Th
 * Imports
 * Conditionals
 * Scope
+* While Loops

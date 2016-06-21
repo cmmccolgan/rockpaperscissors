@@ -1,7 +1,13 @@
+'''
+Play Rock Paper Scissors against the computer
+
+This project was built as a final project to the Spring 2016 Intro to Python. This project is extremely basic so that I could implement the following components of the course:
+
+'''
+
 import random #How the computer chooses
 
-
-'''Convert Computers Guess to a Score ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
+'''Convert Computers Guess to a Score ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
 def computer_number():
     #get a random number in the range of 1 through 3
     num = random.randrange(1,4)
@@ -15,10 +21,21 @@ def computer_number():
     #return the number
     return num
 
-'''Convert Users Guess to a Score ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
+'''Ask User's Name 1st time ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
+firstRun=True
+def user_name():
+    global firstRun
+    if firstRun:
+        global user_name
+        user_name = raw_input("[What is your name?]")
+        firstRun=False
+    else:
+        pass
+
+'''Convert Users Guess to a Score ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
 def user_guess():
     #get the user's guess
-    guess = raw_input("Please enter your choice: ").lower()
+    guess = raw_input("[Please enter your choice:]").lower()
     #while guess == 'paper' or guess == 'rock' or guess == 'scissors':
     if is_valid_guess(guess):
         #assign 1 to rock
@@ -31,11 +48,12 @@ def user_guess():
         elif guess == 'scissors' or guess == 's' or guess == '3':
             number = 3
         return number
+
     else:
-        print("Please choose between Rock, Paper, or Scissors")
+        print("[!!! Please choose between Rock, Paper, or Scissors !!!]")
         return user_guess()
 
-'''Check Users Input/Guess ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
+'''Check Users Input/Guess ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
 def is_valid_guess(guess):
     #Convert input to lower case
     return guess.lower() in ('rock','r','1','paper','p','2','scissors','s','3')
@@ -45,20 +63,20 @@ def is_valid_guess(guess):
         status = False
     return status
 
-'''Play again ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
+'''Play again ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`~~~~~~'''
 def restart():
-    answer = raw_input("Would you like to play again? yes or no").lower()
-    #if/elif statement
-    if answer == 'y' or answer == 'yes':
-        main()
-    elif answer == 'n' or answer == 'no':
-        print("Thanks %s for playing...Goodbye!" % (user_name))
-    else:
-        print("Invalid input yes or no")
-        #call restart
-        restart()
+    while True:
+        answer = raw_input("[Would you like to play again?]").lower()
+        #if/elif statement
+        if answer == 'y' or answer == 'yes':
+            main()
+        elif answer == 'n' or answer == 'no':
+            print("Thanks %s for playing...Goodbye!" % (user_name))
+            return False
+        else:
+            print("Invalid input yes or no")
 
-'''Determine Winner ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
+'''Determine Winner ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
 #results function
 def results(num, number):
     #find the difference in the two numbers
@@ -78,9 +96,8 @@ def results(num, number):
         restart()
 
 ''' Game Sequence ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
-def main():
-    global user_name
-    user_name = raw_input("What is your name?")
+def rps():
+    user_name()
     #intro message
     print("~~~~~~~~~~~~~~~~~~~~~~~~~Welcome! ~~~~~~~~~~~~~~~~~~~~~~~~~")
     print("Let's play some Rock, Paper, Scissors!")
@@ -91,6 +108,6 @@ def main():
     #call the results function
     results(num, number)
 
-'''required to run main function~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
-if __name__ == '__main__':
-    main()
+'''required to run main function~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
+if __name__ == '__rps__':
+    rps()
